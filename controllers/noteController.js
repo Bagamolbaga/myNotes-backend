@@ -12,6 +12,20 @@ const NoteController = {
         const notes = await Note.findAll({where: {user_id}})
         return res.json(notes)
     },
+
+    edit: async (req, res) => {
+        const {note_id, newTitle, newText} = req.body
+        const updatedNote = await Note.update(
+            {
+                title: newTitle,
+                text: newText
+            },
+            {
+                where: {id: note_id}
+            }
+        )
+        return res.json(updatedNote)
+    }
 }
 
 module.exports = NoteController
