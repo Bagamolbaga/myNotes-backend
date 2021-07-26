@@ -50,14 +50,20 @@ const UserController = {
         }
 
         try {
-            const token = req.headers.authorization.split(' ')[1]
-            if (!token) {
-                res.status(401).json({message: 'Не авторизован'})
+            const reqToken = req.headers.authorization.split(' ')[1]
+            if (!reqToken) {
+                return res.json({message: 'Не авторизован'})
             }
 
+            const decodeToken = jwt.verify(reqToken, process.env.JWT_HASH)
+            req.user = decodeToken
+
+            const token = createJwt(req.user.id, req.user.name)
+
+            res.json({token})
             
         } catch (e) {
-            res.status(401).json({message: 'Не авторизован'})
+            res.json({message: 'Не авторизован2'})
         }
     }
 }
