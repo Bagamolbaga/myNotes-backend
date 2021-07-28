@@ -25,6 +25,12 @@ const NoteController = {
             }
         )
         return res.json(updatedNote)
+    },
+
+    delete: async (req, res) => {
+        const { note_id } = req.query
+        const deleteNode = await Note.destroy({where: {id: note_id}})
+        return res.json(deleteNode)
     }
 }
 
