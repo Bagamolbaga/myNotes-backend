@@ -10,7 +10,7 @@ module.exports = new Sequelize(env !== 'development' ? prodUrl : devUrl, {
     dialect: 'postgres',
     protocol: 'postgres',
     dialectOptions: {
-      ssl: true,
+      ssl: { rejectUnauthorized: false },
       native:true
     }
 })
