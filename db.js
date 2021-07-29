@@ -4,6 +4,13 @@ const env = process.env.NODE_ENV || 'development'
 
 const devUrl = `postgres://postgres:lehabaga@localhost:5432/my_notes`
 
-const prodUrl = `${process.env.DATABASE_URL}?sslmode=require`
+const prodUrl = process.env.DATABASE_URL
 
-module.exports = new Sequelize(env !== 'development' ? prodUrl : devUrl)
+module.exports = new Sequelize(env !== 'development' ? prodUrl : devUrl, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: true,
+      native:true
+    }
+})
