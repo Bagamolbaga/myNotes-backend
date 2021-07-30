@@ -9,8 +9,11 @@ const prodUrl = process.env.DATABASE_URL
 module.exports = new Sequelize(env !== 'development' ? prodUrl : devUrl, {
     dialect: 'postgres',
     protocol: 'postgres',
-    dialectOptions: {
-      ssl: { rejectUnauthorized: false },
-      native:true
-    }
+    dialectOptions: env === 'production' ? 
+        {
+            ssl: { rejectUnauthorized: false },
+            native:true
+        } 
+            :
+        {}
 })
