@@ -14,6 +14,7 @@ const Note = sequelize.define('note', {
     text: {type: DataTypes.STRING, allowNull: false},
     user_id: {type: DataTypes.INTEGER, allowNull: false},
     group_id: {type: DataTypes.INTEGER, allowNull: false},
+    fixed: {type: DataTypes.BOOLEAN, defaultValue: false}
 })
 
 const Group = sequelize.define('group', {
