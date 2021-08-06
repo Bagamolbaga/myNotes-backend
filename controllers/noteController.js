@@ -14,16 +14,38 @@ const NoteController = {
     },
 
     edit: async (req, res) => {
-        const {note_id, newTitle, newText} = req.body
-        const updatedNote = await Note.update(
-            {
-                title: newTitle,
-                text: newText
-            },
-            {
-                where: {id: note_id}
-            }
-        )
+        const {note_id, newTitle, newText, toFixed, toUnFixed} = req.body
+
+        let updatedNote
+        if (toFixed) {
+            updatedNote = await Note.update(
+                {
+                    fixed: true
+                },
+                {
+                    where: {id: note_id}
+                }
+            )
+        } else if (toUnFixed) {
+            updatedNote = await Note.update(
+                {
+                    fixed: false
+                },
+                {
+                    where: {id: note_id}
+                }
+            )
+        } else {
+            updatedNote = await Note.update(
+                {
+                    title: newTitle,
+                    text: newText
+                },
+                {
+                    where: {id: note_id}
+                }
+            )
+        }
         return res.json(updatedNote)
     },
 
