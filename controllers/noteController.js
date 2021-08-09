@@ -2,8 +2,8 @@ const {Note} = require('../models/models')
 
 const NoteController = {
     create: async (req, res) => {
-        const {title, text, group_id, user_id} = req.body
-        const note = await Note.create({title, text, user_id, group_id})
+        const {title, text, tags, group_id, user_id} = req.body
+        const note = await Note.create({title, text, tags, user_id, group_id})
         return res.json(note)
     },
 
@@ -14,7 +14,7 @@ const NoteController = {
     },
 
     edit: async (req, res) => {
-        const {note_id, newTitle, newText, toFixed, toUnFixed} = req.body
+        const {note_id, newTitle, newText, newTags, toFixed, toUnFixed} = req.body
 
         let updatedNote
         if (toFixed) {
@@ -39,7 +39,8 @@ const NoteController = {
             updatedNote = await Note.update(
                 {
                     title: newTitle,
-                    text: newText
+                    text: newText,
+                    tags: newTags
                 },
                 {
                     where: {id: note_id}
